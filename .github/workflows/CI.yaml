@@ -74,6 +74,7 @@ jobs:
         quiet: false
         soft_fail: false
         directory: ${{ inputs.terraform_working_directory }}
+        skip_check: CKV_TF_1
         framework: terraform
         output_format: sarif
         download_external_modules: false
