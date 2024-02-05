@@ -24,6 +24,10 @@ on:
         description: The working directory the runner uses
         default: '.'
         type: string
+      repo_name:
+        description: The repo slug for the calling repository
+        required: true
+        type: string
 
 env:
   AWS_REGION: ${{ inputs.AWS_ECR_SERVER_REGION }}
@@ -33,6 +37,7 @@ env:
   ECS_TASK_NAME: ${{ inputs.task_name }}
   ECS_CLUSTER: ${{ inputs.cluster_name }}
   WORK_DIR: ${{ inputs.working_directory }}
+  REPO_NAME: ${{ inputs.repo_name }}
   # ECS_TASK_DEFINITION: ".aws/task-definition.json"
   # CONTAINER_NAME: MY_CONTAINER_NAME
   
