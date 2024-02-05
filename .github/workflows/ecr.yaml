@@ -15,6 +15,11 @@ on:
         description: The ecs task definition name, which mayor may not be the same as the service name.
         required: true
         type: string
+      cluster_name:
+        description: The ecs cluster name.
+        default: ecs-ue2-gui-core
+        required: true
+        type: string
 
 env:
   AWS_REGION: ${{ input.AWS_ECR_SERVER_REGION }}
@@ -22,7 +27,7 @@ env:
   ECR_REPOSITORY: ${{ inputs.service_name }}
   ECS_SERVICE: ${{ inputs.service_name }}
   ECS_TASK_NAME: ${{ inputs.task_name }}
-  # ECS_CLUSTER: ecs-ue2-gui-core
+  ECS_CLUSTER: ${{ inputs.cluster_name }}
   # ECS_TASK_DEFINITION: ".aws/task-definition.json"
   # CONTAINER_NAME: MY_CONTAINER_NAME
   
