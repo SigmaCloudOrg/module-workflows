@@ -26,7 +26,7 @@ on:
         type: string
 
 env:
-  AWS_REGION: ${{ input.AWS_ECR_SERVER_REGION }}
+  AWS_REGION: ${{ inputs.AWS_ECR_SERVER_REGION }}
   REGISTRY_URL: ${{ vars.AWS_ECR_SERVER_URL }}
   ECR_REPOSITORY: ${{ inputs.service_name }}
   ECS_SERVICE: ${{ inputs.service_name }}
