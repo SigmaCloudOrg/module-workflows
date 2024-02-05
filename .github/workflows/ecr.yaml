@@ -20,6 +20,10 @@ on:
         default: ecs-ue2-gui-core
         required: false
         type: string
+      working_directory:
+        description: The working directory the runner uses
+        default: '.'
+        type: string
 
 env:
   AWS_REGION: ${{ input.AWS_ECR_SERVER_REGION }}
@@ -28,6 +32,7 @@ env:
   ECS_SERVICE: ${{ inputs.service_name }}
   ECS_TASK_NAME: ${{ inputs.task_name }}
   ECS_CLUSTER: ${{ inputs.cluster_name }}
+  WORK_DIR: ${{ inputs.working_directory }}
   # ECS_TASK_DEFINITION: ".aws/task-definition.json"
   # CONTAINER_NAME: MY_CONTAINER_NAME
   
@@ -45,6 +50,8 @@ jobs:
         aws-access-key-id: ${{ vars.AWS_ECR_MASTER_ID }}
         aws-secret-access-key: ${{ secrets.AWS_ECR_MASTER_SECRET }}
         aws-region: ${{ vars.AWS_ECR_SERVER_REGION }}
+        soft_fail: true
+        working_directory: ${{ inputs.working_directory }}
 
     - name: Login to Amazon ECR
       id: login-ecr
