@@ -28,6 +28,10 @@ on:
         description: The owner/name for the calling repository
         required: true
         type: string
+      repo_owner:
+        description: The owner for the calling repository
+        required: true
+        type: string
 
 env:
   AWS_REGION: ${{ inputs.AWS_ECR_SERVER_REGION }}
