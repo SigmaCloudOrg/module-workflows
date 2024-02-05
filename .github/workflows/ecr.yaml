@@ -25,7 +25,7 @@ on:
         default: '.'
         type: string
       repo_name:
-        description: The repo slug for the calling repository
+        description: The owner/name for the calling repository
         required: true
         type: string
 
@@ -38,6 +38,7 @@ env:
   ECS_CLUSTER: ${{ inputs.cluster_name }}
   WORK_DIR: ${{ inputs.working_directory }}
   REPO_NAME: ${{ inputs.repo_name }}
+  REPO_OWNER: ${{ inputs.repo_owner }}
   # ECS_TASK_DEFINITION: ".aws/task-definition.json"
   # CONTAINER_NAME: MY_CONTAINER_NAME
   
@@ -48,6 +49,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+
+    - name: Set REPO_NAME variable
+      run: |
+        echo "REPO_NAME=${{ inputs.repo_name }}#${{ inputs.repo_owner }}/}" >> $GITHUB_ENV
+
+    - name: Use the custom ENV variable
+      run: |
+        echo $REPO_NAME
       
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
