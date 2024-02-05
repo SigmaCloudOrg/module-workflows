@@ -18,7 +18,7 @@ on:
       cluster_name:
         description: The ecs cluster name.
         default: ecs-ue2-gui-core
-        required: true
+        required: false
         type: string
 
 env:
