@@ -7,8 +7,12 @@ concurrency:
 on:
   workflow_call:
     inputs:
+      service_name:
+        description: The service name, short version
+        required: true
+        type: string      
       ecs_service_name:
-        description: The ecs service name, as defined by terraform.
+        description: The ecs service name, as defined by terraform with prefixing
         required: true
         type: string
       ecs_task_name:
@@ -17,12 +21,6 @@ on:
         type: string
       ecs_cluster_name:
         description: The ecs cluster name.
-        default: ecs-ue2-gui-core
-        required: false
-        type: string
-      ecr_repo_name:
-        description: The owner/name for the calling repository
-        default: console-backend
         required: true
         type: string
       ecr_image_tag:
@@ -33,12 +31,12 @@ on:
 env:
   AWS_REGION: ${{ inputs.AWS_ECR_SERVER_REGION }}
   REGISTRY_URL: ${{ vars.AWS_ECR_SERVER_URL }}
-  ECR_REPOSITORY: ${{ inputs.ecr_repo_name }}
-  ECS_SERVICE: ${{ inputs.ecs_service_name }}
-  ECS_FULL_SERVICE: ${{ inputs.ecs_service_name }}
+  SERVICE_NAME: ${{ inputs.service_name }}
+  ECS_SERVICE_NAME: ${{ inputs.ecs_service_name }}
   ECS_TASK_NAME: ${{ inputs.ecs_task_name }}
-  ECS_CLUSTER: ${{ inputs.ecs_cluster_name }}
-  ECS_IMAGE_TAG: ${{ inputs.ecr_image_tag }}
+  ECS_CLUSTER_NAME: ${{ inputs.ecs_cluster_name }}
+  ECR_REPOSITORY: ${{ inputs.ecs_service_name }}
+  ECR_IMAGE_TAG: ${{ inputs.ecr_image_tag }}
   # ECS_TASK_DEFINITION: ".aws/task-definition.json"
   # CONTAINER_NAME: MY_CONTAINER_NAME
   
