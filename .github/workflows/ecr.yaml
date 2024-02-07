@@ -7,15 +7,11 @@ concurrency:
 on:
   workflow_call:
     inputs:
-      ecr_service_name:
-        description: The ecs service name, which should also be the ecr repo name.
-        required: true
-        type: string
       ecs_service_name:
         description: The ecs service name, as defined by terraform.
         required: true
         type: string
-      ecr_task_name:
+      ecs_task_name:
         description: The ecs task definition name, which mayor may not be the same as the service name.
         required: true
         type: string
@@ -38,9 +34,9 @@ env:
   AWS_REGION: ${{ inputs.AWS_ECR_SERVER_REGION }}
   REGISTRY_URL: ${{ vars.AWS_ECR_SERVER_URL }}
   ECR_REPOSITORY: ${{ inputs.ecr_repo_name }}
-  ECS_SERVICE: ${{ inputs.ecr_service_name }}
+  ECS_SERVICE: ${{ inputs.ecs_service_name }}
   ECS_FULL_SERVICE: ${{ inputs.ecs_service_name }}
-  ECS_TASK_NAME: ${{ inputs.ecr_task_name }}
+  ECS_TASK_NAME: ${{ inputs.ecs_task_name }}
   ECS_CLUSTER: ${{ inputs.ecs_cluster_name }}
   ECS_IMAGE_TAG: ${{ inputs.ecr_image_tag }}
   # ECS_TASK_DEFINITION: ".aws/task-definition.json"
