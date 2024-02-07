@@ -19,7 +19,7 @@ on:
         description: The ecs task definition name, which mayor may not be the same as the service name.
         required: true
         type: string
-      ecr_cluster_name:
+      ecs_cluster_name:
         description: The ecs cluster name.
         default: ecs-ue2-gui-core
         required: false
@@ -40,7 +40,7 @@ env:
   ECS_SERVICE: ${{ inputs.ecr_service_name }}
   ECS_FULL_SERVICE: ${{ inputs.ecs_service_name }}
   ECS_TASK_NAME: ${{ inputs.ecr_task_name }}
-  ECS_CLUSTER: ${{ inputs.ecr_cluster_name }}
+  ECS_CLUSTER: ${{ inputs.ecs_cluster_name }}
   ECS_IMAGE_TAG: ${{ inputs.ecr_image_tag }}
   # ECS_TASK_DEFINITION: ".aws/task-definition.json"
   # CONTAINER_NAME: MY_CONTAINER_NAME
@@ -81,7 +81,7 @@ jobs:
       with:
         task-definition: task-definition.json
         service: ${{ inputs.ecs_service_name }}
-        cluster: ${{ inputs.ecr_cluster_name }}
+        cluster: ${{ inputs.ecs_cluster_name }}
         wait-for-service-stability: true    
   # tfsec:
   #   name: Security Checks
