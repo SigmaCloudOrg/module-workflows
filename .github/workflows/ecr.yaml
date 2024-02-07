@@ -11,6 +11,10 @@ on:
         description: The ecs service name, which should also be the ecr repo name.
         required: true
         type: string
+      ecs_service_name:
+        description: The ecs service name, as defined by terraform.
+        required: true
+        type: string
       ecr_task_name:
         description: The ecs task definition name, which mayor may not be the same as the service name.
         required: true
@@ -34,6 +38,7 @@ env:
   REGISTRY_URL: ${{ vars.AWS_ECR_SERVER_URL }}
   ECR_REPOSITORY: ${{ inputs.ecr_repo_name }}
   ECS_SERVICE: ${{ inputs.ecr_service_name }}
+  ECS_FULL_SERVICE: ${{ inputs.ecs_service_name }}
   ECS_TASK_NAME: ${{ inputs.ecr_task_name }}
   ECS_CLUSTER: ${{ inputs.ecr_cluster_name }}
   ECS_IMAGE_TAG: ${{ inputs.ecr_image_tag }}
@@ -70,7 +75,14 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-  
+
+    - name: Deploy to Amazon ECS
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        service: ${{ inputs.ecs_service_name }}
+        cluster: ${{ inputs.ecr_cluster_name }}
+        wait-for-service-stability: true    
   # tfsec:
   #   name: Security Checks
   #   runs-on: ubuntu-latest
