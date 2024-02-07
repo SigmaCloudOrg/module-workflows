@@ -26,6 +26,7 @@ on:
         type: string
       ecr_repo_name:
         description: The owner/name for the calling repository
+        default: console-orchestration
         required: true
         type: string
       ecr_image_tag:
