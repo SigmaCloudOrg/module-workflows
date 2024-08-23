@@ -20,7 +20,7 @@ env:
   TFLINT_VERSION: v0.39.3
   TFSEC_VERSION: latest
   TFC_VERSION: 1.9.2
-  # TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
+  TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
   
 jobs:
   tflint:
@@ -30,17 +30,17 @@ jobs:
     - name: Checkout 
       uses: actions/checkout@v3
 
-    - name: echo workspace1
+    - name: echo cache dir env var
       run: |
-        echo ${{ github.workspace }}
+        echo $TF_PLUGIN_CACHE_DIR
         
-    - name: echo working dir1
+    - name: echo tf cache key
       run: |
-        echo ${{ inputs.terraform_working_directory }}
+        echo ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
 
-    - name: echo cache dir1
+    - name: echo tf cache path
       run: |
-        echo ${{ inputs.terraform_working_directory }}/.terraform.d/plugin-cache
+        echo ${{ env.TF_PLUGIN_CACHE_DIR }}
 
     # - name: Create TF Cache
     #   run: mkdir --parents ${{ inputs.terraform_working_directory }}/.terraform.d/plugin-cache
