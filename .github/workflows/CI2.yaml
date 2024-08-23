@@ -108,16 +108,18 @@ jobs:
         cli_config_credentials_hostname: ${{ secrets.TFC_ADDR }}
         cli_config_credentials_token: ${{ secrets.TFC_TOKEN }}
 
-    - name: Create TF Cache
-      run: |
-        mkdir --parents ${{ env.TF_PLUGIN_CACHE_DIR }}
+    # - name: Create TF Cache
+    #   run: |
+    #     mkdir --parents ${{ env.TF_PLUGIN_CACHE_DIR }}
 
-    - name: Cache Terraform
-      uses: actions/cache@v2
-      with:
-        path: ${{ env.TF_PLUGIN_CACHE_DIR }}
-        key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
-
+    # - name: Cache Terraform
+    #   uses: actions/cache@v2
+    #   with:
+    #     path: ${{ env.TF_PLUGIN_CACHE_DIR }}
+    #     key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
+    
+    - uses: terraform-cache/terraform-cache@v1
+    
     - name: Terraform - Init
       working-directory: ${{ inputs.terraform_working_directory }}
       run: terraform init
