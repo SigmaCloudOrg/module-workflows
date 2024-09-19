@@ -19,7 +19,7 @@ on:
 env:
   TFLINT_VERSION: v0.39.3
   TFSEC_VERSION: latest
-  TFC_VERSION: 1.9.2
+  TFC_VERSION: 1.9.6
   TF_PLUGIN_CACHE_DIR: ${{ inputs.terraform_working_directory }}/.terraform.d/plugin-cache
   
 jobs:
