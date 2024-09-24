@@ -93,8 +93,8 @@ jobs:
       with:
         files: '["**/*"]'
       env:
-        TEMPORARY_PROVIDER_START: "/*"
-        TEMPORARY_PROVIDER_END: "*/"
+        TEMPORARY_PROVIDER_START: "*/"
+        TEMPORARY_PROVIDER_END: "/*"
 
     - name: Terraform - Setup
       uses: hashicorp/setup-terraform@v2
