@@ -88,6 +88,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Replace Temporary Provider Tokens
+      uses: cschleiden/replace-tokens@v1
+      with:
+        files: '["**/*"]'
+      env:
+        TEMPORARY_PROVIDER_START: "/*"
+        TEMPORARY_PROVIDER_END: "*/"
+
     - name: Terraform - Setup
       uses: hashicorp/setup-terraform@v2
       with: 
