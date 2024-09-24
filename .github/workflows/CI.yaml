@@ -91,7 +91,7 @@ jobs:
     - name: Replace Temporary Provider Tokens
       uses: cschleiden/replace-tokens@v1
       with:
-        files: '["**/*"]'
+        files: '["providers.tf"]'
       env:
         TEMPORARY_PROVIDER_START: "*/"
         TEMPORARY_PROVIDER_END: "/*"
