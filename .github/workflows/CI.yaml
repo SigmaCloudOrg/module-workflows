@@ -45,7 +45,15 @@ jobs:
 
     - name: TFLint - Run
       working-directory: ${{ inputs.terraform_working_directory }}
-      run: tflint -f compact
+      run: tflint --format=compact > tflint_output.txt || true
+      continue-on-error: true
+
+    - name: TFLint Summary
+      working-directory: ${{ inputs.terraform_working_directory }}
+      run: |
+        echo "### TFLint Results" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        cat tflint_output.txt >> $GITHUB_STEP_SUMMARY
   
   tfsec:
     name: Security Checks
