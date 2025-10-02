@@ -121,10 +121,19 @@ jobs:
       
     - name: Terraform - Speculative Plan
       if: ${{ inputs.module_level == 4 }}
+      id: speculativeplan
       working-directory: ${{ inputs.terraform_working_directory }}
-      run: terraform plan | tee terraform_plan_output.txt
+      run: |
+        terraform plan | tee terraform_plan_output.txt
+        echo "exit_code=$PIPESTATUS" >> "$GITHUB_OUTPUT"
 
-    - name: Print job summary
+    - name: Terraform - Plan Result
+      if: ${{ inputs.module_level == 4 && steps.speculativeplan.outputs.exit_code != '0' }}
+      run: |
+        echo "Terraform plan failed. Expand Speculative Plan step for error details"
+        exit 1
+        
+    - name: Terraform - Job Summary
       if: ${{ inputs.module_level == 4 }}
       uses: sgametrio/terraform-summary-action@main
       with:
