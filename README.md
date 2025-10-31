@@ -27,3 +27,4 @@ All Terraform modules in the `energyx-io` organization can remotely call the reu
 
 ## CI Workflow
 The reusable CI workflow (`.github/workflows/CI.yaml`) abstracts the process of validating the correctness of Terraform modules before they are deployed. It also automates the release process should the CI process succeed. For more information about what's happening, view the workflow code directly.
+
