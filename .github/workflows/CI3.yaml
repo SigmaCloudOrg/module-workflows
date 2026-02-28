@@ -128,7 +128,7 @@ jobs:
       working-directory: ${{ inputs.terraform_working_directory }}
       run: terraform init
       env:
-        TF_PLUGIN_CACHE_DIR: ${{ inputs.terraform_working_directory }}/.terraform.d/plugin-cache
+        TF_PLUGIN_CACHE_DIR: ~/.terraform.d/plugin-cache
 
     - name: Terraform - Validate
       working-directory: ${{ inputs.terraform_working_directory }}
