@@ -15,9 +15,6 @@ on:
         description: The working directory terraform uses in a monorepo with multiple workspaces
         default: '.'
         type: string
-      tf_workspace:
-        required: true
-        type: string
         
 env:
   TFLINT_VERSION: v0.39.3
@@ -95,9 +92,6 @@ jobs:
     needs: [tflint, tfsec, checkov]
     name: Terraform Validation
     runs-on: ubuntu-latest
-    env:
-      TF_CLOUD_ORGANIZATION: "sigmacloud"
-      TF_API_TOKEN: ${{ secrets.TFC_TOKEN }}
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -113,8 +107,8 @@ jobs:
     - name: Cache Terraform providers
       uses: actions/cache@v4
       with:
-        path: ~/${{ inputs.terraform_working_directory }}/.terraform.d/plugin-cache
-        key: ${{ runner.os }}-terraform-${{ hashFiles('**/*.tf') }}
+        path: ${{ inputs.terraform_working_directory }}/.terraform.d/plugin-cache
+        key: ${{ runner.os }}-terraform-${{ hashFiles(format('{0}/.terraform.lock.hcl', inputs.terraform_working_directory)) }}
         restore-keys: |
           ${{ runner.os }}-terraform-
           
@@ -126,7 +120,7 @@ jobs:
         
     - name: Terraform - Init
       working-directory: ${{ inputs.terraform_working_directory }}
-      run: terraform init
+      run: terraform init -plugin-dir=${{ inputs.terraform_working_directory }}/.terraform.d/plugin-cache
 
     - name: Terraform - Validate
       working-directory: ${{ inputs.terraform_working_directory }}
