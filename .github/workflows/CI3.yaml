@@ -97,7 +97,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TF_CLOUD_ORGANIZATION: "sigmacloud"
-      TF_WORKSPACE: ${{ inputs.tf_workspace }}
       TF_API_TOKEN: ${{ secrets.TFC_TOKEN }}
     steps:
     - name: Checkout
