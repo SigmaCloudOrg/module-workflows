@@ -114,8 +114,7 @@ jobs:
     - name: Cache Terraform providers
       uses: actions/cache@v4
       with:
-        working-directory: ${{ inputs.terraform_working_directory }}
-        path: ~/.terraform.d/plugin-cache
+        path: ~/${{ inputs.terraform_working_directory }}/.terraform.d/plugin-cache
         key: ${{ runner.os }}-terraform-${{ hashFiles('**/.terraform.lock.hcl') }}
         restore-keys: |
           ${{ runner.os }}-terraform-
@@ -124,7 +123,7 @@ jobs:
       working-directory: ${{ inputs.terraform_working_directory }}
       run: terraform init
       env:
-        TF_PLUGIN_CACHE_DIR: ~/.terraform.d/plugin-cache
+        TF_PLUGIN_CACHE_DIR: ~/${{ inputs.terraform_working_directory }}/.terraform.d/plugin-cache
 
     - name: Terraform - Validate
       working-directory: ${{ inputs.terraform_working_directory }}
