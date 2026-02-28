@@ -125,6 +125,7 @@ jobs:
         cli_config_credentials_token: ${{ secrets.TFC_TOKEN }}
         
     - name: Terraform - Init
+      working-directory: ${{ inputs.terraform_working_directory }}
       run: terraform init
 
     - name: Terraform - Validate
